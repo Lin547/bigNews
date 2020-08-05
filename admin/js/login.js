@@ -24,7 +24,7 @@ $(function () {
                         // window.location.href='index.html'
 
                     } else {
-                        $('#myModal').find('.modal-body').text(res.msg);
+                        $('#myModal').find('.modal-body > p').text(res.msg);
                         $('#myModal').modal('show');
                     }
 

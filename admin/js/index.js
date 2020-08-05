@@ -1,4 +1,8 @@
 $(function () {
+    if(!localStorage.getItem('token')){
+        alert('您还未登录，请先登录');
+        location.href = './login.html';
+    }
 
     // 获取用户信息
     $.ajax({
@@ -43,5 +47,12 @@ $(function () {
     $('.level02 > li').click(function(){
         // 展开子项样式
         $(this).addClass('active').siblings().removeClass('active');
+    })
+
+
+    // 退出功能
+    $('.logout').on('click', function(){
+        localStorage.removeItem('token');
+        location.href = './login.html';
     })
 })
