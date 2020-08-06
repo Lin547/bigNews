@@ -1,5 +1,32 @@
 /* 沙箱模式 */
+//利用自调用函数形成一个封闭空间，不在全局暴露任何属性
+//利用传参的形式传递window对象，这样在内部使用时不会再去全局搜索，而是使用形参
+//需要向外暴露属性等时，可通过挂载到window对象上，供使用
+//沙箱中，变量的定义放在最上方，中间放逻辑代码
 (function(w){
+
+    // 添加全局的 $.ajaxSetup 配值，除了首页以外的页面都要自动设置请求头
+    $.ajaxSetup({
+        // 在发送ajax之前，给所有的请求设置请求头
+        beforeSend(xhr) {
+            // 判断当前请求所在页面是否为登录页面
+            if(location.href.indexOf('admin/login.html') === -1){
+                // 读取token，设置请求头
+                xhr.setRequsetHeader('Authorization', localStorage.getItem('token'));
+            }
+        },
+        error(xhr, status, error){
+            console.log('xhr', xhr);
+            console.log('status', status);
+            console.log('error', error);
+            // 判断错误信息是否为无权限
+            if(error === 'Forbidden'){{
+                alert('请先登录')
+                window.location.href = './login.html'
+            }}
+        }
+    })
+
     var baseURL = 'http://localhost:8080/api/v1'
     var BigNew = {
         baseURL:baseURL,//基地址

@@ -1,4 +1,5 @@
 $(function () {
+
     $('.input_pass').keydown(function (e) {
         if (e.keyCode === 13) {
             $('.input_sub').click()
@@ -11,7 +12,7 @@ $(function () {
             console.log(1);
             $.ajax({
                 type: 'post',
-                url: 'http://localhost:8080/api/v1/admin/user/login',
+                url: BigNew.user_login,
                 data: { username, password },
                 dataType: 'json',
                 success: (res) => {

@@ -1,5 +1,29 @@
 /* 沙箱模式 */
 (function(w){
+
+    // 添加全局的 $.ajaxSetup 配值，除了首页以外的页面都要自动设置请求头
+    $.ajaxSetup({
+        // 在发送ajax之前，给所有的请求设置请求头
+        beforeSend(xhr) {
+            // 判断当前请求所在页面是否为登录页面
+            if(location.href.indexOf('admin/login.html') === -1){
+                // 读取token，设置请求头
+                xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+            }
+        },
+        error(xhr, status, error){
+            console.log('xhr', xhr);
+            console.log('status', status);
+            console.log('error', error);
+            // 判断错误信息是否为无权限
+            if(error === 'Forbidden'){{
+                alert('请先登录')
+                window.location.href = './login.html'
+            }}
+        }
+    })
+
+
     var baseURL = 'http://localhost:8080/api/v1'
     var BigNew = {
         baseURL:baseURL,//基地址
