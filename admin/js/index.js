@@ -25,6 +25,7 @@ $(function () {
             // console.log(res);
             if (res.code === 200) {
                 $('.user_info > img').attr('src', res.data.userPic)
+                $('.user_center_link > img').attr('src', res.data.userPic)
                 $('.user_info > span').html(`欢迎&nbsp;&nbsp;${res.data.nickname}`)
             }
         },
@@ -59,9 +60,23 @@ $(function () {
         $(this).addClass('active').siblings().removeClass('active');
     })
 
-
     // 退出功能
     $('.logout').on('click', function () {
+        $('.modal').modal('show');
+        $('html').one('keyup', function (e) {
+            if (e.keyCode === 13) {
+                console.log(123);
+                $('.btn-primary').click();
+            }
+        })
+
+        // if(confirm('确定要退出吗')){
+        // localStorage.removeItem('token');
+        // location.href = './login.html';
+        // }
+    })
+    $('.btn-primary').on('click', function(){
+        $('.modal').modal('hide');
         localStorage.removeItem('token');
         location.href = './login.html';
     })

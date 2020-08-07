@@ -12,9 +12,9 @@
             }
         },
         error(xhr, status, error){
-            console.log('xhr', xhr);
-            console.log('status', status);
-            console.log('error', error);
+            // console.log('xhr', xhr);
+            // console.log('status', status);
+            // console.log('error', error);
             // 判断错误信息是否为无权限
             if(error === 'Forbidden'){{
                 alert('请先登录')

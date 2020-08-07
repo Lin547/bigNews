@@ -14,6 +14,8 @@
     <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
     <!-- 引入模板引擎js文件 -->
     <script src="./libs/template-web.js"></script>
+    <script src="./libs/http.js"></script>
+    <script src="./js/article_category.js"></script>
 </head>
 
 <body>
@@ -43,7 +45,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-center">
-                            <a href="javascript:void(0)" class="btn btn-success" id="xinzengfenlei" data-toggle="modal"
+                            <a href="#" class="btn btn-success" id="xinzengfenlei" data-toggle="modal"
                                 data-target="#myModal">新增分类</a>
                         </td>
                     </tr>
@@ -51,5 +53,51 @@
             </table>
         </div>
     </div>
+
+    <!-- 新增和编辑公用的模态框 -->
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="text" name="id" id="categoryId" hidden>
+                        <div class="form-group">
+                            <label for="name">分类名称</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="分类名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="slug">分类类别</label>
+                            <input type="text" class="form-control" id="slug" name="slug"
+                                placeholder="分类类别">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/html" id="categoryTemplate">
+        {{each data}}
+        <tr>
+            <td>{{$value.name}}</td>
+            <td>{{$value.slug}}</td>
+            <td class="text-center">
+                <a href="#" class=" btn btn-info btn-xs btn_edit" data-id="{{$value.id}}">编辑</a>
+                <a href="#" class="btn btn-danger btn-xs btn_delete" data-id="{{$value.id}}">删除</a>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
 
 </html>

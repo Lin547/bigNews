@@ -30,22 +30,23 @@ $(function(){
         $('img.user_pic').attr('src', url);
     })
 
-    // 注册表单提交事件
-    $('#form').on('submit', function(e){
+    // 注册表单提交事件  发现问题：此处用表单提价时在表单元素中按下enter时会触发提交事件
+    $('.btn-edit').on('click', function(e){
         // 禁用表单默认提交事件
-        e.preventDefault();
+        // e.preventDefault();
         $.ajax({
             type: 'post',
             url: BigNew.user_edit,
             // headers: {
             //     Authorization: window.localStorage.getItem('token')
             // },
-            data: new FormData(this),
+            data: new FormData($('#form')[0]),
             dataType: 'json',
             contentType: false,
             processData: false,
             success: (res)=>{
                 console.log(res);
+                // window.parent.location.reload();
             }
         })
     })
