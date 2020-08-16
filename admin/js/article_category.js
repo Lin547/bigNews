@@ -1,23 +1,24 @@
 $(function () {
-
-    // 加载类别数据
-    // 5、所有文章类别
-    // 请求地址：/admin/category / list
-    // 请求方式：get
-    // 请求参数：无
-    // 返回数据：文章
     function init() {
+        // 加载类别数据
+        // 5、所有文章类别
+        // 请求地址：/admin/category / list
+        // 请求方式：get
+        // 请求参数：无
+        // 返回数据：文章类别
+        // 获取文章类别
         $.ajax({
             url: BigNew.category_list,
             dataType: 'json',
             success: (res) => {
-                // console.log(res);
+                console.log(res);
                 if (res.code === 200) {
                     // 模板渲染，并追加到表格中
                     $('tbody').html(template('categoryTemplate', res))
                 }
             }
         })
+        
     }
     init();
 
@@ -33,7 +34,13 @@ $(function () {
     // 请求参数：
     $('.btn-primary').on('click', function () {
         if ($(this).text() == '新增') {
-            const data = $('form').serialize();
+            // 新增请求不需要传递id，需要将数据进行处理，可以拿到字符串后去除指定的参数段
+            let data = $('form').serialize();
+            // 拿到从id开始后面的&符号的下标
+            const endIndex = data.indexOf('&', data.indexOf('id'));
+            // 截取id键值对的字符串，替换为空
+            data = data.replace(data.substring(data.indexOf('id'), endIndex + 1), '');
+            console.log(data);
             opt(data, BigNew.category_add, '新增');
         } else if ($(this).text() == '编辑') {
             const data = $('form').serialize();

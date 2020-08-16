@@ -46,7 +46,7 @@ $(function(){
             processData: false,
             success: (res)=>{
                 console.log(res);
-                // window.parent.location.reload();
+                window.parent.location.reload();
             }
         })
     })
